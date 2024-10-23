@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RT-G Rank Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/proxy-google-maps"></script>
+    <script src="client.js" defer></script>
+</head>
+<body>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <div class="container">
+        <div class="header-container">
+            <img src="logo.png" alt="Magic Reviews Logo" class="logo">
+            <h1>Rank Tracker - RT-G</h1>
+        </div>
+        <form id="track-form">
+            <div>
+                <label for="business-name">Business Name:</label>
+                <input type="text" id="business-name" name="business-name" placeholder="Enter Business Name" required>
+            </div>
+            <div>
+                <label for="query">Search Keyword:</label>
+                <input type="text" id="query" name="query" placeholder="Enter Keyword" required>
+            </div>
+            <div>
+                <label for="grid-type">Grid Type:</label>
+                <select id="grid-type" name="grid-type">
+                    <option value="square">Square Grid</option>
+                    <option value="circular">Circular Grid</option>
+                </select>
+            </div>
+            <div id="grid-size-container">
+                <label for="grid-size">Grid Size:</label>
+                <select id="grid-size" name="grid-size">
+                    <!-- Options will be dynamically generated based on the grid type -->
+                </select>
+            </div>
+            <div>
+                <label for="radius">Radius:</label>
+                <input type="number" id="radius" name="radius" placeholder="Enter Radius" value="1.5" step="0.1" required>
+            </div>
+            <div>
+                <label for="units">Radius Units:</label>
+                <select id="units" name="units">
+                    <option value="mi">Miles</option>
+                    <option value="km">Kilometers</option>
+                </select>
+            </div>
+            <input type="hidden" id="latitude" name="latitude">
+            <input type="hidden" id="longitude" name="longitude">
+            <input type="hidden" id="place-id" name="place-id">
+            <button type="submit">Run Search</button>
+        </form>
+        <div id="map" style="position: relative; height: 500px; margin-top: 20px;"></div>
+    </div>
+    <!-- Info window overlay container -->
+    <div id="info-window-overlay" class="info-window-overlay">
+        <div class="info-window-content">
+            <button class="close-info-window" id="close-info-window">&times;</button>
+            <div id="info-window-body"></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const gridTypeSelect = document.getElementById('grid-type');
+            const gridSizeSelect = document.getElementById('grid-size');
+            const closeInfoWindowButton = document.getElementById('close-info-window');
+            const infoWindowOverlay = document.getElementById('info-window-overlay');
+
+            // Function to adjust grid size options based on grid type
+            function adjustGridSizeOptions() {
+                const gridType = gridTypeSelect.value;
+
+                // Clear existing options
+                gridSizeSelect.innerHTML = '';
+
+                if (gridType === 'circular') {
+                    // Add circular grid options
+                    const circularOptions = [
+                        { value: 8, label: '1 layer (8 points)' },
+                        { value: 16, label: '2 layers (24 points)' },
+                        { value: 24, label: '3 layers (48 points)' },
+                        { value: 36, label: '4 layers (84 points)' },
+                        { value: 48, label: '5 layers (132 points)' },
+                        { value: 60, label: '6 layers (192 points)' },
+                        { value: 72, label: '7 layers (264 points)' }
+                    ];
+
+                    circularOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option.value;
+                        opt.textContent = option.label;
+                        gridSizeSelect.appendChild(opt);
+                    });
+                } else {
+                    // Add square grid options (e.g., 3x3, 5x5, 7x7)
+                    const squareOptions = [
+                        { value: 3, label: '3x3' },
+                        { value: 5, label: '5x5' },
+                        { value: 7, label: '7x7' },
+                        { value: 9, label: '9x9' },
+                        { value: 11, label: '11x11' },
+                        { value: 13, label: '13x13' },
+                        { value: 15, label: '15x15' }
+                    ];
+
+                    squareOptions.forEach(option => {
+                        const opt = document.createElement('option');
+                        opt.value = option.value;
+                        opt.textContent = option.label;
+                        gridSizeSelect.appendChild(opt);
+                    });
+                }
+            }
+
+            // Adjust grid size options on initial load and when the grid type changes
+            adjustGridSizeOptions();
+            gridTypeSelect.addEventListener('change', adjustGridSizeOptions);
+
+            // Close info window overlay when clicking the close button
+            closeInfoWindowButton.addEventListener('click', function () {
+                infoWindowOverlay.style.display = 'none';
+            });
+
+            // Close info window overlay when clicking outside of the info window content
+            infoWindowOverlay.addEventListener('click', function (event) {
+                if (event.target === infoWindowOverlay) {
+                    infoWindowOverlay.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

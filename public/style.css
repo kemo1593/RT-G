@@ -1,0 +1,194 @@
+/* Updated style.css to support new functionalities */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400; /* Normal weight */
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers the header and logo horizontally */
+    gap: 15px; /* Adds space between the logo and the heading */
+}
+
+.logo {
+    max-width: 130px; /* Adjust the logo size as needed */
+    height: auto;
+}
+
+h1, h2, h3 {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    margin: 0; /* Remove any default margin around the heading */
+    font-size: 2rem; /* Adjust the font size as needed */
+    font-weight: 700; /* Bold weight */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="number"], select {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background: #ff4b2b;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: #ff1c1c;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+/* Custom info window overlay styling */
+#info-window-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    display: none; /* Hidden by default */
+}
+
+.info-window-content {
+    background: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+    border-radius: 10px;
+    position: relative;
+}
+
+.info-window-content h3 {
+    margin-top: 0;
+}
+
+/* Info window tile styles */
+.business-tiles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.business-tile {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+/* Style for the business in query */
+.business-tile.highlighted-query {
+    background-color: #fbe9e7; /* Light pink or any color that makes it stand out */
+    border: 2px solid #ff5722; /* Adds a border to further highlight it */
+}
+
+.business-tile:hover {
+    background-color: #f0f0f0; /* Slightly different background color on hover */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.business-tile.selected {
+    background: #e0f7e0; /* Light green background for selected business */
+}
+
+.business-tile .rank {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.business-tile .name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.business-tile .rating {
+    font-size: 1rem;
+    color: #2f00ff;
+    margin-top: 5px;
+}
+
+.business-tile .stars {
+    color: #fbbc04; /* Yellow stars */
+}
+
+.business-tile .address {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+.close-info-window {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 5px 10px;
+    border-radius: 50%;
+    z-index: 10001;
+}
+
+.close-info-window:hover {
+    background: #555;
+}
